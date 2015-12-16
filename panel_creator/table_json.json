@@ -1,0 +1,14 @@
+{
+    "panel_name" : "no_salt",
+    "panel_header" : "A panel with no salt",
+    "panel_title" : "Salty dog",
+    "target" : "openstack_dashboard/dashboards/project/",
+    "tables":
+    [
+      	{
+		    "name": "no_salty",
+		    "columns": ["This", "table", "doesn't","use", "salt"],
+		    "action-buttons": [{"name" : "whatevs", "action":"no", "value" : "Don't click me"}]
+        }
+    ]
+}
