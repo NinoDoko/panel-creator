@@ -6,11 +6,9 @@ The tool basically creates a new panel using run_tests.sh and modifies the views
 
 You can use your custom base views and templates if you want, either by modifying the source file or by supplying the --base_view and --base_template arguments. You can use a very basic tag system to describe what exactly needs to be substituted and where. 
 
-The tables were originally designed to be used with salt stack modules. That's why some of the code might be wonky and you might notice a --use_salt argument. This is the first iteration of this program, and I might remove it when and if I keep updating it. 
-
 ## Example usage
 
-generate\_table.py should reside in the same folder as run_tests.sh. In order to use it, you must have a .json file which contains the table columns and other information. You can see the example table_json.json file for an example. 
+generate_table.py should reside in the same folder as run_tests.sh. In order to use it, you must have a .json file which contains the table columns and other information. You can see the example table_json.json file for an example. 
 
 Then use 
 ```
@@ -72,27 +70,27 @@ A sample file containing a json file to explain the structure.
 
 If you have a custom view, template or action that you would want to use instead of the default one, you can do so with : 
 ```
-$python generate\_table.py --json\_data path/to/json --base\_view path/to/view --base\_template path/to/template --base\_action path/to/action
+$python generate_table.py --json_data path/to/json --base_view path/to/view --base_template path/to/template --base_action path/to/action
 ```
 For the moment, base views use very rudimentary tags which basically look like #tag#. I am tempted to switch to jinja, but i kinda wanted to refrain from using other modules. 
 
 The defaut view uses these tags. 
- * #Template\_Location# - which is the location of the template. This is calculated from the target value. 
- * #Tables\_Dictionary# - which is a list of all tables with their names and columns and looks like the following : 
+ * #Template_Location# - which is the location of the template. This is calculated from the target value. 
+ * #Tables_Dictionary# - which is a list of all tables with their names and columns and looks like the following : 
   ```
     [{'name':'table1name', 'collumns':['col1', 'col2']},{'name':'table2name', 'columns':['col3', 'col4']}]
 ```
- * #Panel\_Header# - which is the same header as defined in the json data. 
- * #Panel\_Title# - which is the same title as in the json. 
+ * #Panel_Header# - which is the same header as defined in the json data. 
+ * #Panel_Title# - which is the same title as in the json. 
  * #Actions# - which are the actions used by the buttons. 
 
 I have pondered adding support for custom tags. The only problem is that there's barely any reason to use tags if you're not using them with variables. So for the moment, you may use custom tags by modifying the source file. Namely, find the line :
 
-    replacement\_tags = {'#Template\_Location#' : template\_loc, '#Tables\_Dictionary#': str(tables), ...}
+    replacement_tags = {'#Template_Location#' : template_loc, '#Tables_Dictionary#': str(tables), ...}
 
 And add your tags as values in the dictionary like so : 
 
-    replacement\_tags = {..., '#Tag\_Example#' : tag\_value , ...}
+    replacement_tags = {..., '#Tag_Example#' : tag_value , ...}
 
 The source file is documented and should contain information about all the variables. 
 
@@ -109,7 +107,7 @@ The history of this project is a very standard one.
 
 ## Installation
 
-Just download the source. generate\_table.py should be in the same folder as run\_tests.sh, while to use the default view and template, they should be put in a subdirectory panel\_creator. Your project structure should look like this : 
+Just download the source. generate_table.py should be in the same folder as run_tests.sh, while to use the default view and template, they should be put in a subdirectory panel_creator. Your project structure should look like this : 
 ```
 openstack_project/
     -generate_table.py
