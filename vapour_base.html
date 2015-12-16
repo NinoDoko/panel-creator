@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}{{ panel_title }}{% endblock %}
+{% load i18n %}
+{% block main %}
+<style type="text/css">
+
+.host h1{
+    margin: 0;
+}
+.host .services-len{
+    color: #555;
+    padding-left: 5px;
+    font-size: 12px;
+}
+.host table tr.service-state-0{
+  border-left: 5px solid #44de40;
+}
+.host table tr.service-state-1{
+  border-left: 5px solid #dedc40;
+}
+.host table tr.service-state-2{
+  border-left: 5px solid #de4040;
+}
+
+.header{
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.panel_header{
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+{% block extra_styles %}
+{% endblock %}
+</style>
+    <div class = panel_header>
+    {{ panel_header }}
+    </div>
+
+    {% block before_tables %}
+    {% endblock %}
+
+    {% for table in tables %}
+    <div class = header>
+    {{ table.name }}
+    </div>
+
+    {% block before_each_table %}
+    {% endblock %}
+      <div class="host">
+          <table class="table table-bordered datatable">
+            <thead>
+              <tr class="tablesorter-headerRow">
+                {% for header in table.columns %}
+                <th class="sortable normal_column">{{ header }}</th>
+                {% endfor %}
+                {% block extra_columns %}
+
+                {% endblock %}
+              </tr>
+            </thead>
+            <tbody>
+            {% for row in table.rows %}
+              <tr class="service-state-{{ host.status }}">
+                {% for element in row %}
+                    <td class="sortable normal_column">{{ element }}</td>
+                {% endfor %}    
+                {% for button in table.buttons %}
+                <td class="sortable normal_column"><a class="btn btn-primary bt-sm" href="{{ button.action }}">{{ button.value }}</a></td>
+                {% endfor %}
+                {% block extra_values %}
+
+                {% endblock %}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    {% endfor %}
+
+    {% block after_tables %}
+    {% endblock %}
+
+{% endblock %}
